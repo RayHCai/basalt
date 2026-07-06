@@ -1,0 +1,32 @@
+# Lefthook — git hooks. Single tracked config at the repo root.
+# Hooks are installed by the root package.json `prepare` script
+# (`pnpm exec lefthook install`), so no dependency postinstall is needed.
+# Empty-repo safe: jobs only run against staged/pushed files.
+# Docs: https://lefthook.dev
+#
+# The top-level `pre-commit/` folder is reserved for bespoke hand-written hook
+# scripts; wire them in here via a job's `run:` or Lefthook's `scripts:` runner.
+
+assert_lefthook_installed: true
+
+pre-commit:
+  parallel: true
+  skip:
+    - merge
+    - rebase
+  jobs:
+    - name: oxlint
+      glob: "*.{js,jsx,ts,tsx,cjs,mjs,cts,mts}"
+      run: pnpm exec oxlint --no-error-on-unmatched-pattern {staged_files}
+    - name: prettier
+      glob: "*.{js,jsx,ts,tsx,cjs,mjs,cts,mts,json,jsonc,md,mdx,yml,yaml,css}"
+      run: pnpm exec prettier --check --ignore-unknown {staged_files}
+
+pre-push:
+  parallel: true
+  skip:
+    - merge
+    - rebase
+  jobs:
+    - name: typecheck
+      run: pnpm run typecheck

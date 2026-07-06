@@ -1,0 +1,67 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# Cancel superseded runs for the same ref.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+# Least-privilege default token.
+permissions:
+  contents: read
+
+env:
+  CI: true
+  TURBO_TELEMETRY_DISABLED: 1
+  # --- Turborepo Remote Caching (disabled by default) ---
+  # To enable: add repo secret TURBO_TOKEN + repo variable TURBO_TEAM, then
+  # uncomment the two lines below. Turbo auto-detects them; no turbo.json change.
+  # TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+  # TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+
+jobs:
+  ci:
+    name: Lint / Typecheck / Build / Hygiene
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      # pnpm MUST be set up BEFORE setup-node: setup-node's cache:'pnpm' needs
+      # pnpm on PATH to resolve the store dir. The version is read from the
+      # "packageManager" field in package.json (no `version:` input given).
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm run lint
+
+      - name: Import cycles
+        run: pnpm run check:cycles
+
+      - name: Typecheck
+        run: pnpm run typecheck
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Format check
+        run: pnpm run format:check
+
+      - name: Dead code / unused deps (knip)
+        run: pnpm run knip
