@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build output / caches
+dist/
+build/
+out/
+coverage/
+.turbo/
+.cache/
+*.tsbuildinfo
+
+# Generated — Prettier must not reformat these
+pnpm-lock.yaml
+
+# Vendored / minified
+**/*.min.js
+**/*.min.css
+
+# Keep placeholders untouched
+**/.gitkeep

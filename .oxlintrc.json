@@ -1,0 +1,54 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "unicorn", "oxc", "import", "promise", "node", "jsdoc"],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "error",
+    "perf": "error",
+    "restriction": "off",
+    "pedantic": "warn",
+    "style": "warn",
+    "nursery": "off"
+  },
+  "env": {
+    "es2026": true,
+    "node": true
+  },
+  "settings": {
+    "jsdoc": {
+      "ignorePrivate": true,
+      "ignoreInternal": true
+    }
+  },
+  "rules": {
+    "import/no-cycle": ["error", { "maxDepth": 10, "ignoreTypes": false }],
+    "import/no-self-import": "error",
+    "import/no-duplicates": "error",
+    "import/prefer-default-export": "off",
+    "import/no-named-export": "off",
+    "import/no-namespace": "off",
+    "import/no-default-export": "off",
+    "import/no-nodejs-modules": "off",
+    "typescript/no-explicit-any": "error",
+    "typescript/no-non-null-assertion": "error",
+    "typescript/consistent-type-imports": "error",
+    "typescript/no-unused-vars": "error",
+    "eqeqeq": ["error", "always"],
+    "no-eval": "error",
+    "no-var": "error",
+    "prefer-const": "error",
+    "no-console": "warn",
+    "id-length": "off",
+    "no-magic-numbers": "off",
+    "sort-keys": "off",
+    "sort-imports": "off",
+    "func-style": "off",
+    "max-lines-per-function": "off",
+    "max-statements": "off",
+    "max-params": "off",
+    "capitalized-comments": "off",
+    "no-ternary": "off",
+    "unicorn/no-null": "off",
+    "unicorn/filename-case": "off"
+  }
+}

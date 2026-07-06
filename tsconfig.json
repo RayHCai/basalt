@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "basalt-root-solution",
+  // Thin SOLUTION file for `tsc -b`. It compiles nothing itself (files: []) and
+  // only points at member projects via "references". Valid and error-free with
+  // zero packages. Add package paths as they land, e.g.:
+  //   { "path": "package/public/model-sdk" }
+  //
+  // Per-package tsconfig.json pattern (create inside each real package):
+  //   {
+  //     "extends": "../../tsconfig.base.json",
+  //     "compilerOptions": {
+  //       "rootDir": "./src",
+  //       "outDir": "./dist",
+  //       "tsBuildInfoFile": "./dist/.tsbuildinfo",
+  //       "types": ["node"]
+  //     },
+  //     "include": ["src/**/*"],
+  //     "exclude": ["dist", "node_modules"],
+  //     "references": []
+  //   }
+  "files": [],
+  "references": [],
+}

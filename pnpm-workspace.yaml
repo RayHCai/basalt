@@ -1,0 +1,51 @@
+# pnpm workspace configuration (pnpm 11).
+#
+# IMPORTANT: In pnpm 11 the settings below (overrides, allowBuilds,
+# minimumReleaseAge, engineStrict, ...) live HERE as top-level keys — NOT in
+# .npmrc and NOT in package.json's "pnpm" field (pnpm 11 no longer reads it).
+# .npmrc holds only registry/auth.
+
+packages:
+  - "src"
+  - "apps/*"
+  - "apps/dashboard/*"
+  - "package/public/*"
+  - "package/internal/*"
+  - "models/*"
+  - "channels/*"
+  - "plugins/*"
+  - "agent-tooling/mcps/*"
+  - "agent-tooling/tools/*"
+  - "agent-tooling/scripts/*"
+  - "agent-tooling/skill-files/*"
+
+# Centralized version catalog. Reference from any package.json with the
+# "catalog:" protocol. Empty until the first shared dependency is added, e.g.:
+#   catalog:
+#     zod: ^4.0.0
+catalog: {}
+catalogs: {}
+
+# Dependency overrides. In pnpm 11 this is the ONLY valid location (the
+# package.json "pnpm.overrides" field is no longer read).
+overrides: {}
+
+# Build-script allowlist. In pnpm 11 this replaces pnpm 10's
+# `onlyBuiltDependencies`. With strictDepBuilds: true, any dependency that ships
+# an install/build script must be reviewed here (true = allow, false = reviewed
+# and denied) or the install fails. lefthook is explicitly denied — its git-hook
+# installation is handled by the root `prepare` script, not a postinstall.
+allowBuilds:
+  lefthook: false
+
+# Supply-chain hardening: refuse to install any version published less than N
+# minutes ago (default 1440 = 24h). Exempt packages/patterns via the exclude
+# list (e.g. your own workspace scope before its first publish).
+minimumReleaseAge: 1440
+minimumReleaseAgeExclude: []
+
+# pnpm 11 security-relevant settings, pinned explicitly so a future default
+# change cannot silently weaken the config.
+engineStrict: true
+strictDepBuilds: true
+autoInstallPeers: true

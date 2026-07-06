@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "basalt-base",
+  "compilerOptions": {
+    // --- Module system: Node 24 ESM ---
+    // nodenext (not bundler): enforces Node's real ESM resolution, so emitted
+    // imports (mandatory `.js` extensions, package "exports" honored) actually
+    // run under `node`. Code valid here is also bundler-safe.
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "moduleDetection": "force",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+
+    // --- Target / lib: match V8 in Node 24 (avoid the moving `esnext`). ---
+    "target": "es2024",
+    "lib": ["es2024"],
+    // Empty by default so no global @types leak in; each package opts into
+    // `@types/node` via its own "types": ["node"].
+    "types": [],
+
+    // --- Module-syntax hygiene ---
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    // isolatedDeclarations forces explicit types on every exported symbol,
+    // enabling fast parallel .d.ts emit. Aggressive but free to adopt now while
+    // all packages are empty; remove this line if the team finds it too strict.
+    "isolatedDeclarations": true,
+    "noUncheckedSideEffectImports": true,
+
+    // --- Strictness (strictest safe preset) ---
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "useUnknownInCatchVariables": true,
+    "forceConsistentCasingInFileNames": true,
+
+    // --- Emit + project references ---
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "composite": true,
+    "incremental": true,
+    "noEmitOnError": true,
+
+    // --- Performance ---
+    "skipLibCheck": true,
+  },
+}
