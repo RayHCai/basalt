@@ -43,3 +43,8 @@ Thumbs.db
 # Internals
 .config/
 
+# Runtime home dir (installed add-ons, sessions, sqlite) lives at ~/.basalt/.
+# It is NOT part of the repo — managed at runtime by the storage/config
+# packages. Listed here only to catch an accidental in-repo copy.
+.basalt/
+
