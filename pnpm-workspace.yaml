@@ -7,17 +7,16 @@
 
 packages:
   - "src"
-  - "apps/*"
   - "apps/dashboard/*"
-  - "package/public/*"
-  - "package/internal/*"
-  - "models/*"
-  - "channels/*"
-  - "plugins/*"
-  - "agent-tooling/mcps/*"
-  - "agent-tooling/tools/*"
-  - "agent-tooling/scripts/*"
-  - "agent-tooling/skill-files/*"
+  - "packages/*"
+  - "packages/add-on-sdk/plugin-sdk"
+  - "packages/add-on-sdk/providers/*"
+  - "evals"
+  - "integration-tests"
+  # NOTE: bundled add-ons under add-ons/{plugins,providers}/* are intentionally
+  # NOT workspace packages — each add-on is data/content loaded into the JSON
+  # contract at runtime, not part of the build graph. Likewise ~/.basalt/add-ons
+  # (installed add-ons) is a runtime home-dir location, managed by storage/config.
 
 # Centralized version catalog. Reference from any package.json with the
 # "catalog:" protocol. Empty until the first shared dependency is added, e.g.:
