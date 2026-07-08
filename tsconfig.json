@@ -4,7 +4,7 @@
   // Thin SOLUTION file for `tsc -b`. It compiles nothing itself (files: []) and
   // only points at member projects via "references". Valid and error-free with
   // zero packages. Add package paths as they land, e.g.:
-  //   { "path": "packages/add-on-sdk/providers/model-sdk" }
+  //   { "path": "packages/model-provider" }
   //
   // Per-package tsconfig.json pattern (create inside each real package):
   //   {
@@ -20,5 +20,5 @@
   //     "references": []
   //   }
   "files": [],
-  "references": [],
+  "references": [{ "path": "packages/observability" }],
 }

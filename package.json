@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "turbo run build",
-    "check": "pnpm run lint && pnpm run check:cycles && pnpm run typecheck && pnpm run build && pnpm run format:check && pnpm run knip",
+    "check": "pnpm run lint && pnpm run check:cycles && pnpm run typecheck && pnpm run build && pnpm run test && pnpm run format:check && pnpm run knip",
     "check:cycles": "oxlint --config oxlint.cycles.json --no-error-on-unmatched-pattern .",
     "dev": "turbo run dev",
     "format": "prettier --write . --ignore-unknown",
@@ -16,17 +16,20 @@
     "lint:fix": "oxlint --fix --no-error-on-unmatched-pattern",
     "prepare": "node -e \"if(process.env.CI||process.env.LEFTHOOK==='0'){process.exit(0)}try{require('node:fs').accessSync('.git')}catch{process.exit(0)}require('node:child_process').execSync('pnpm exec lefthook install',{stdio:'inherit'})\"",
     "test": "turbo run test",
+    "test:watch": "vitest",
     "typecheck": "turbo run typecheck"
   },
   "devDependencies": {
     "@types/node": "^24.13.2",
+    "@vitest/coverage-v8": "^3.2.4",
     "knip": "^6.24.0",
     "lefthook": "^2.1.9",
     "oxlint": "^1.72.0",
     "prettier": "^3.9.4",
     "prettier-plugin-packagejson": "^3.0.2",
     "turbo": "^2.10.0",
-    "typescript": "~5.9.3"
+    "typescript": "~5.9.3",
+    "vitest": "^3.2.4"
   },
   "packageManager": "pnpm@11.1.2",
   "engines": {
