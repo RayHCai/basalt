@@ -6,28 +6,27 @@
 # .npmrc holds only registry/auth.
 
 packages:
-  - "src"
-  - "apps/dashboard/*"
+  # Every workspace member lives under packages/*. The agent harness and the
+  # runtime are split into sub-packages, so the tree nests one level deeper in
+  # those two spots — hence the explicit globs below.
   - "packages/*"
-  - "packages/add-on-sdk/plugin-sdk"
-  - "packages/add-on-sdk/providers/*"
-  - "evals"
-  - "integration-tests"
-  # NOTE: bundled add-ons under add-ons/{plugins,providers}/* are intentionally
-  # NOT workspace packages — each add-on is data/content loaded into the JSON
-  # contract at runtime, not part of the build graph. Likewise ~/.basalt/add-ons
-  # (installed add-ons) is a runtime home-dir location, managed by storage/config.
+  - "packages/agent/*"
+  - "packages/runtime/*"
 
 # Centralized version catalog. Reference from any package.json with the
-# "catalog:" protocol. Empty until the first shared dependency is added, e.g.:
-#   catalog:
-#     zod: ^4.0.0
-catalog: {}
-catalogs: {}
-
-# Dependency overrides. In pnpm 11 this is the ONLY valid location (the
-# package.json "pnpm.overrides" field is no longer read).
-overrides: {}
+# "catalog:" protocol.
+catalog:
+  # Shared toolchain (kept in lockstep with the root devDependencies so every
+  # package typechecks/tests against the same versions).
+  "@types/node": "^24.13.2"
+  typescript: "~5.9.3"
+  vitest: "^3.2.4"
+  # Logging stack for @basalt/observability. pino writes structured JSONL;
+  # pino-roll rotates those files by size + daily; pino-pretty is the dev-only
+  # console transport.
+  pino: "^10.0.0"
+  pino-pretty: "^13.0.0"
+  pino-roll: "^4.0.0"
 
 # Build-script allowlist. In pnpm 11 this replaces pnpm 10's
 # `onlyBuiltDependencies`. With strictDepBuilds: true, any dependency that ships
@@ -35,6 +34,9 @@ overrides: {}
 # and denied) or the install fails. lefthook is explicitly denied — its git-hook
 # installation is handled by the root `prepare` script, not a postinstall.
 allowBuilds:
+  # esbuild is pulled in by vitest and fetches its platform-native binary in a
+  # postinstall; without this the test runner cannot start.
+  esbuild: true
   lefthook: false
 
 # Supply-chain hardening: refuse to install any version published less than N
