@@ -25,6 +25,11 @@ coverage/
 .env.*
 !.env.example
 
+# Secret store (raw 32-byte master key + the encrypted name→box map). Written
+# wherever config resolves STATE_DIR, so a stray in-repo copy appears when a
+# test or manual run points STATE_DIR at a package dir. NEVER committed.
+.secrets/
+
 # Logs
 *.log
 npm-debug.log*
@@ -47,4 +52,11 @@ Thumbs.db
 # It is NOT part of the repo — managed at runtime by the storage/config
 # packages. Listed here only to catch an accidental in-repo copy.
 .basalt/
+
+# RULER eval datasets + the cloned RULER source, produced by
+# `scripts/generate-ruler-data.sh`. The generated .jsonl embeds third-party
+# corpora (Paul Graham essays, SQuAD, HotpotQA), so it is REGENERATED, never
+# committed. See packages/evals/README (RULER data) and the script header.
+.ruler-data/
+.ruler-src/
 

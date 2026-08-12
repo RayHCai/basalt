@@ -1,0 +1,6 @@
+{
+  "telemetry": false,
+  "gateway": {
+    "timeoutMs": 30000
+  }
+}

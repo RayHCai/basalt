@@ -9,6 +9,12 @@ catalogs:
     '@types/node':
       specifier: ^24.13.2
       version: 24.13.2
+    commander:
+      specifier: ^15.0.0
+      version: 15.0.0
+    picocolors:
+      specifier: ^1.1.1
+      version: 1.1.1
     pino:
       specifier: ^10.0.0
       version: 10.3.1
@@ -24,6 +30,9 @@ catalogs:
     vitest:
       specifier: ^3.2.4
       version: 3.2.7
+    zod:
+      specifier: ^4.4.3
+      version: 4.4.3
 
 importers:
 
@@ -60,8 +69,140 @@ importers:
         specifier: ^3.2.4
         version: 3.2.7(@types/node@24.13.2)(jiti@2.7.0)(yaml@2.9.0)
 
+  packages/agent:
+    dependencies:
+      '@basalt/model-provider':
+        specifier: workspace:*
+        version: link:../model-provider
+      '@basalt/observability':
+        specifier: workspace:*
+        version: link:../observability
+    devDependencies:
+      '@types/node':
+        specifier: 'catalog:'
+        version: 24.13.2
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
+      vitest:
+        specifier: 'catalog:'
+        version: 3.2.7(@types/node@24.13.2)(jiti@2.7.0)(yaml@2.9.0)
+
+  packages/agent-workspace:
+    dependencies:
+      '@basalt/config':
+        specifier: workspace:*
+        version: link:../config
+    devDependencies:
+      '@types/node':
+        specifier: 'catalog:'
+        version: 24.13.2
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
+      vitest:
+        specifier: 'catalog:'
+        version: 3.2.7(@types/node@24.13.2)(jiti@2.7.0)(yaml@2.9.0)
+
+  packages/cli:
+    dependencies:
+      '@basalt/config':
+        specifier: workspace:*
+        version: link:../config
+      '@basalt/evals':
+        specifier: workspace:*
+        version: link:../evals
+      '@basalt/runtime':
+        specifier: workspace:*
+        version: link:../runtime
+      '@basalt/storage':
+        specifier: workspace:*
+        version: link:../storage
+      commander:
+        specifier: 'catalog:'
+        version: 15.0.0
+      picocolors:
+        specifier: 'catalog:'
+        version: 1.1.1
+    devDependencies:
+      '@types/node':
+        specifier: 'catalog:'
+        version: 24.13.2
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
+      vitest:
+        specifier: 'catalog:'
+        version: 3.2.7(@types/node@24.13.2)(jiti@2.7.0)(yaml@2.9.0)
+
+  packages/config:
+    dependencies:
+      '@basalt/secrets':
+        specifier: workspace:*
+        version: link:../secrets
+      zod:
+        specifier: 'catalog:'
+        version: 4.4.3
+    devDependencies:
+      '@types/node':
+        specifier: 'catalog:'
+        version: 24.13.2
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
+      vitest:
+        specifier: 'catalog:'
+        version: 3.2.7(@types/node@24.13.2)(jiti@2.7.0)(yaml@2.9.0)
+
+  packages/evals:
+    dependencies:
+      '@basalt/agent':
+        specifier: workspace:*
+        version: link:../agent
+      '@basalt/config':
+        specifier: workspace:*
+        version: link:../config
+      '@basalt/observability':
+        specifier: workspace:*
+        version: link:../observability
+    devDependencies:
+      '@types/node':
+        specifier: 'catalog:'
+        version: 24.13.2
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
+      vitest:
+        specifier: 'catalog:'
+        version: 3.2.7(@types/node@24.13.2)(jiti@2.7.0)(yaml@2.9.0)
+
+  packages/model-provider:
+    dependencies:
+      '@basalt/config':
+        specifier: workspace:*
+        version: link:../config
+      '@basalt/observability':
+        specifier: workspace:*
+        version: link:../observability
+      '@basalt/secrets':
+        specifier: workspace:*
+        version: link:../secrets
+    devDependencies:
+      '@types/node':
+        specifier: 'catalog:'
+        version: 24.13.2
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
+      vitest:
+        specifier: 'catalog:'
+        version: 3.2.7(@types/node@24.13.2)(jiti@2.7.0)(yaml@2.9.0)
+
   packages/observability:
     dependencies:
+      '@basalt/config':
+        specifier: workspace:*
+        version: link:../config
       pino:
         specifier: 'catalog:'
         version: 10.3.1
@@ -71,6 +212,52 @@ importers:
       pino-roll:
         specifier: 'catalog:'
         version: 4.0.0
+    devDependencies:
+      '@types/node':
+        specifier: 'catalog:'
+        version: 24.13.2
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
+      vitest:
+        specifier: 'catalog:'
+        version: 3.2.7(@types/node@24.13.2)(jiti@2.7.0)(yaml@2.9.0)
+
+  packages/runtime:
+    dependencies:
+      '@basalt/agent':
+        specifier: workspace:*
+        version: link:../agent
+      '@basalt/config':
+        specifier: workspace:*
+        version: link:../config
+      '@basalt/storage':
+        specifier: workspace:*
+        version: link:../storage
+    devDependencies:
+      '@types/node':
+        specifier: 'catalog:'
+        version: 24.13.2
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
+      vitest:
+        specifier: 'catalog:'
+        version: 3.2.7(@types/node@24.13.2)(jiti@2.7.0)(yaml@2.9.0)
+
+  packages/secrets:
+    devDependencies:
+      '@types/node':
+        specifier: 'catalog:'
+        version: 24.13.2
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
+      vitest:
+        specifier: 'catalog:'
+        version: 3.2.7(@types/node@24.13.2)(jiti@2.7.0)(yaml@2.9.0)
+
+  packages/storage:
     devDependencies:
       '@types/node':
         specifier: 'catalog:'
@@ -952,6 +1139,10 @@ packages:
 
   colorette@2.0.20:
     resolution: {integrity: sha512-IfEDxwoWIjkeXL1eXcDiow4UbKjhLdq6/EuSVR9GMN7KVH3r9gQ83e73hsz1Nd1T3ijd5xv1wcWRYO+D6kCI2w==}
+
+  commander@15.0.0:
+    resolution: {integrity: sha512-z67u4ZhzCL/Tydu1lJARtEZYWbWaN7oYLHbsuzocr6y4N6WZAagG3RQ4FW61V1/0+jImpj293XfrcYnd1qxtPg==}
+    engines: {node: '>=22.12.0'}
 
   cross-spawn@7.0.6:
     resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
@@ -2132,6 +2323,8 @@ snapshots:
   color-name@1.1.4: {}
 
   colorette@2.0.20: {}
+
+  commander@15.0.0: {}
 
   cross-spawn@7.0.6:
     dependencies:

@@ -1,41 +1,27 @@
-import { isAbsolute, join, resolve } from 'node:path';
+import { join } from 'node:path';
+
+import { stateDir } from '@basalt/config';
 
 /**
- * Environment variable that relocates the runtime state directory. When unset,
- * {@link stateDir} falls back to the current working directory (see the root
- * README's STATE_DIR section). `@basalt/config` will eventually own this value;
- * observability only reads it.
+ * Directory (under STATE_DIR) that holds rotated log files. State-dir resolution
+ * itself is owned by `@basalt/config` — {@link stateDir} and
+ * {@link STATE_DIR_ENV_VAR} are re-exported from there so this package reads the
+ * same location config and secrets do.
  */
-const STATE_DIR_ENV_VAR = 'BASALT_STATE_DIR';
-
-/** Directory (under STATE_DIR) that holds rotated log files. */
-const LOGS_DIR_NAME = '.logs';
+const LOGS_DIR_NAME = 'logs';
 
 /** Base file name pino-roll appends `.<date>.<n>.log` to. */
 const LOG_FILE_BASE = 'basalt';
 
 type Env = Readonly<Record<string, string | undefined>>;
 
-/**
- * Absolute path to the runtime state directory. Honors `BASALT_STATE_DIR`
- * (resolved against cwd if it is relative); otherwise the current working
- * directory, matching the README default.
- */
-function stateDir(env: Env = process.env): string {
-  const override = env[STATE_DIR_ENV_VAR];
-  if (typeof override === 'string' && override.length > 0) {
-    return isAbsolute(override) ? override : resolve(override);
-  }
-  return process.cwd();
-}
-
-/** Absolute path to `<STATE_DIR>/.logs`. */
+/** Absolute path to `<STATE_DIR>/logs`. */
 function logsDir(env: Env = process.env): string {
   return join(stateDir(env), LOGS_DIR_NAME);
 }
 
 /**
- * Absolute path to the base log file, e.g. `<STATE_DIR>/.logs/basalt`.
+ * Absolute path to the base log file, e.g. `<STATE_DIR>/logs/basalt`.
  * pino-roll appends the date + rotation number + `.log` extension, producing
  * files like `basalt.2026-07-08.1.log`.
  */
@@ -43,4 +29,7 @@ function logFileBase(env: Env = process.env): string {
   return join(logsDir(env), LOG_FILE_BASE);
 }
 
-export { LOG_FILE_BASE, LOGS_DIR_NAME, logFileBase, logsDir, STATE_DIR_ENV_VAR, stateDir };
+// State-dir resolution is owned by @basalt/config; re-export the pass-throughs
+// directly from there. `stateDir` is also imported above for internal use.
+export { STATE_DIR_ENV_VAR, stateDir } from '@basalt/config';
+export { LOG_FILE_BASE, LOGS_DIR_NAME, logFileBase, logsDir };

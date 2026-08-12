@@ -20,5 +20,16 @@
   //     "references": []
   //   }
   "files": [],
-  "references": [{ "path": "packages/observability" }],
+  "references": [
+    { "path": "packages/agent" },
+    { "path": "packages/agent-workspace" },
+    { "path": "packages/cli" },
+    { "path": "packages/config" },
+    { "path": "packages/evals" },
+    { "path": "packages/model-provider" },
+    { "path": "packages/observability" },
+    { "path": "packages/runtime" },
+    { "path": "packages/secrets" },
+    { "path": "packages/storage" },
+  ],
 }

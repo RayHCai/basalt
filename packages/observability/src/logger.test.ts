@@ -81,7 +81,7 @@ describe('file logging', () => {
     expect(record).not.toHaveProperty('hostname');
   });
 
-  it('names files basalt.<date>.<n>.log under .logs', async () => {
+  it('names files basalt.<date>.<n>.log under logs', async () => {
     const log = await createLogger({ env: { BASALT_STATE_DIR: dir }, console: false });
     log.warn('heads up');
     await readRecords(join(dir, LOGS_DIR_NAME), 1);

@@ -10,7 +10,7 @@ const DATE_FORMAT = 'yyyy-MM-dd';
 
 /** Options for {@link createFileStream}. */
 interface FileStreamOptions {
-  /** Base log path (e.g. `<STATE_DIR>/.logs/basalt`). Defaults from env. */
+  /** Base log path (e.g. `<STATE_DIR>/logs/basalt`). Defaults from env. */
   file?: string | undefined;
   /** Size threshold before rotation, e.g. `'10m'`. */
   maxFileSize?: string | number | undefined;
@@ -26,7 +26,7 @@ interface FileStreamOptions {
  * of `pino.transport`. Files rotate on **both** size (`maxFileSize`) and calendar
  * day (`frequency: 'daily'`); the date segment uses pino-roll's native
  * `dateFormat`, which formats in local time — so a file's date is the local
- * calendar day it was opened. `mkdir` creates `<STATE_DIR>/.logs` on demand, and
+ * calendar day it was opened. `mkdir` creates `<STATE_DIR>/logs` on demand, and
  * numbering resumes from the highest existing file so a restart appends rather
  * than clobbers.
  */

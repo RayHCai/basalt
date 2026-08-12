@@ -1,0 +1,2 @@
+{"index": 0, "input": "Answer the question based on the given documents. Document 1: The capital of the example nation is Rivertown. Document 2: unrelated. Question: What is the capital of the example nation?", "outputs": ["Rivertown"], "length": 38, "answer_prefix": " Answer:"}
+{"index": 1, "input": "Answer the question based on the given documents. Document 1: The festival is held in the month of Harvestmoon. Question: When is the festival held?", "outputs": ["Harvestmoon", "the month of Harvestmoon"], "length": 33, "answer_prefix": " Answer:"}

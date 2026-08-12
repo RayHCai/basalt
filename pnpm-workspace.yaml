@@ -6,11 +6,10 @@
 # .npmrc holds only registry/auth.
 
 packages:
-  # Every workspace member lives under packages/*. The agent harness and the
-  # runtime are split into sub-packages, so the tree nests one level deeper in
-  # those two spots — hence the explicit globs below.
+  # Every workspace member lives under packages/*. The runtime may split into
+  # sub-packages (e.g. session-router), so the tree can nest one level deeper
+  # there — hence the explicit glob below.
   - "packages/*"
-  - "packages/agent/*"
   - "packages/runtime/*"
 
 # Centralized version catalog. Reference from any package.json with the
@@ -27,6 +26,14 @@ catalog:
   pino: "^10.0.0"
   pino-pretty: "^13.0.0"
   pino-roll: "^4.0.0"
+  # CLI stack for @basalt/cli. commander parses args + subcommands; picocolors is
+  # the tiny (zero-dependency) terminal color library used for output styling.
+  commander: "^15.0.0"
+  picocolors: "^1.1.1"
+  # Schema + validation stack for @basalt/config. zod defines the typed config
+  # schemas, drives validation on load/mutation, and is introspected to locate
+  # secret-bearing fields (see @basalt/config's secret-field walker).
+  zod: "^4.4.3"
 
 # Build-script allowlist. In pnpm 11 this replaces pnpm 10's
 # `onlyBuiltDependencies`. With strictDepBuilds: true, any dependency that ships

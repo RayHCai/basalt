@@ -14,6 +14,7 @@
     "es2026": true,
     "node": true
   },
+  "ignorePatterns": ["scripts/**"],
   "settings": {
     "jsdoc": {
       "ignorePrivate": true,
@@ -49,8 +50,11 @@
     "sort-imports": "off",
     "func-style": "off",
     "max-lines-per-function": "off",
+    "max-lines": "off",
     "max-statements": "off",
     "max-params": "off",
+    "max-dependencies": "off",
+    "max-nested-calls": "off",
     "capitalized-comments": "off",
     "no-ternary": "off",
     "unicorn/no-null": "off",

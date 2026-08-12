@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "turbo run build",
+    "postbuild": "node scripts/link-agent-dir.js",
     "check": "pnpm run lint && pnpm run check:cycles && pnpm run typecheck && pnpm run build && pnpm run test && pnpm run format:check && pnpm run knip",
     "check:cycles": "oxlint --config oxlint.cycles.json --no-error-on-unmatched-pattern .",
     "dev": "turbo run dev",

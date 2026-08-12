@@ -12,8 +12,9 @@ import {
 } from './paths.js';
 
 describe('paths', () => {
-  it('defaults the state dir to the current working directory', () => {
-    expect(stateDir({})).toBe(process.cwd());
+  // stateDir is re-exported from @basalt/config, which owns the default.
+  it('defaults the state dir to <cwd>/.basalt', () => {
+    expect(stateDir({})).toBe(join(process.cwd(), '.basalt'));
   });
 
   it('honors an absolute BASALT_STATE_DIR override', () => {
@@ -27,12 +28,13 @@ describe('paths', () => {
   });
 
   it('ignores an empty override', () => {
-    expect(stateDir({ [STATE_DIR_ENV_VAR]: '' })).toBe(process.cwd());
+    expect(stateDir({ [STATE_DIR_ENV_VAR]: '' })).toBe(join(process.cwd(), '.basalt'));
   });
 
-  it('places logs under <STATE_DIR>/.logs', () => {
+  it('places logs under <STATE_DIR>/logs', () => {
     const dir = '/srv/basalt';
     expect(logsDir({ [STATE_DIR_ENV_VAR]: dir })).toBe(join(dir, LOGS_DIR_NAME));
+    expect(LOGS_DIR_NAME).toBe('logs');
   });
 
   it('builds the log file base as <logs>/basalt', () => {

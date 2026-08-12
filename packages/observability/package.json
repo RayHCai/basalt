@@ -16,10 +16,12 @@
   ],
   "scripts": {
     "build": "tsc -b",
+    "dev": "tsc -b --watch",
     "test": "vitest run",
-    "typecheck": "tsc -b --noEmit"
+    "typecheck": "tsc -b"
   },
   "dependencies": {
+    "@basalt/config": "workspace:*",
     "pino": "catalog:",
     "pino-pretty": "catalog:",
     "pino-roll": "catalog:"

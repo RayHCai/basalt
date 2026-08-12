@@ -1,0 +1,19 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "tsBuildInfoFile": "./dist/.tsbuildinfo",
+    "types": ["node"],
+    // Zod's `z.object(...)` schemas cannot satisfy isolatedDeclarations (TS9010):
+    // an exported schema — or an exported `z.infer` type that references one —
+    // has no explicit annotation to emit. The base config sanctions this
+    // per-package opt-out for Zod-centric packages.
+    "isolatedDeclarations": false,
+  },
+  // JSON is included so the checked-in base template (src/schemas/defaults/*.json)
+  // is copied into dist/ and importable with an import attribute under Node 24.
+  "include": ["src/**/*.ts", "src/**/*.json"],
+  "exclude": ["dist", "node_modules"],
+  "references": [{ "path": "../secrets" }],
+}

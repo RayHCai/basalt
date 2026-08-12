@@ -3,7 +3,7 @@
  *
  * Logs are structured JSONL, written per-subsystem (tagged `basalt.<pkg>`),
  * rotated by size and daily, and pruned after 30 days. Files live under
- * `<STATE_DIR>/.logs/`.
+ * `<STATE_DIR>/logs/`.
  *
  * Typical use:
  * ```ts

@@ -1,0 +1,1 @@
+{"index": 0, "input": "Read the list and find the most common words. alpha beta alpha gamma alpha beta delta alpha beta gamma. What are the most common words?", "outputs": ["alpha", "beta", "gamma"], "length": 30, "answer_prefix": " Answer: The top words are:"}
