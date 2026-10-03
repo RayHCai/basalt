@@ -29,4 +29,4 @@ This installs dependencies and registers the git hooks (via lefthook).
 ## Project structure
 
 Every workspace member is a package under `packages/*`. See the
-[root README](../README.md) for the dependency graph and package descriptions.
+[development guide](./DEVELOPMENT.md) for the dependency graph and package descriptions.
