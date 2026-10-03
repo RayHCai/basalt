@@ -1,3 +1,5 @@
+# Development
+
 Basalt is a small, light-weight CLI harness similar to Claude code.
 
 Features:
