@@ -1,3 +1,5 @@
+# Development
+
 Basalt is a small, light-weight CLI harness similar to Claude code.
 
 Features:
@@ -25,14 +27,14 @@ Here's how you interact with the agent:
 1. Creates/updates the `STATE_DIR`, then sets up `agent/` (with `tools/`,
    `mcps/`, and `model-providers/`), `config/`, and `secrets/` underneath it,
    plus the `.agent-workspace/` tree (with `shared/`) under `AGENT_WORKSPACE_DIR`
-   (defaults to `STATE_DIR`) (idempotent — running twice never destroys existing
+   (defaults to `STATE_DIR`) (idempotent, running twice never destroys existing
    state).
 
 - `basalt evaluate`
 
 1. Runs the RULER evaluation pipeline over the real RULER datasets (the 13
-   RULER v1 tasks — needle-in-haystack variants, variable tracking, common/
-   frequent-words extraction, SQuAD/HotpotQA — generated once by
+   RULER v1 tasks, needle-in-haystack variants, variable tracking, common/
+   frequent-words extraction, SQuAD/HotpotQA, generated once by
    `scripts/generate-ruler-data.sh`, which runs NVIDIA's own generators). It
    loads the selected samples, drives the agent harness per sample (parallel, N
    reps at temp 0, per-task token/turn caps), scores with RULER's own scorers,
@@ -40,7 +42,7 @@ Here's how you interact with the agent:
    `--fraction <f>`, `--lengths 8k,32k,128k`, `--tasks niah_single_1,vt,qa_1`,
    `--max-samples`, `--reps`, `--concurrency`, `--max-input-tokens`,
    `--max-turns`, `--provider`, `--model`, `--no-store`. Defaults to the `dummy`
-   provider (a pipeline smoke test — accuracy is ~0 by design). Datasets are
+   provider (a pipeline smoke test, accuracy is ~0 by design). Datasets are
    sized with the `cl100k_base` tokenizer, so absolute lengths are not directly
    comparable to RULER numbers published for another model's tokenizer.
 2. `basalt evaluate report` -> renders stored runs: an accuracy-vs-tokens
@@ -108,10 +110,10 @@ packages/
                       `shared/`. The workspace root lives at
                       `<AGENT_WORKSPACE_DIR>/.agent-workspace/` (config resolves
                       the base via `BASALT_AGENT_WORKSPACE_DIR`, defaulting to
-                      STATE_DIR) — a sibling of the platform tree, not a child, so
+                      STATE_DIR), a sibling of the platform tree, not a child, so
                       config/secrets are never reachable by a relative write.
 
-    storage/          sqlite storage — sessions, cron registry, config/plugin
+    storage/          sqlite storage, sessions, cron registry, config/plugin
                       tracking; defines the access methods over it.
 
     config/           create + manage typed config (built on storage). Defaults,
@@ -139,7 +141,7 @@ packages/
 
 The STATE_DIR defaults to `<cwd>/.basalt` (so config and agent live in a `.basalt` folder under the current working dir). Override with `BASALT_STATE_DIR`. (TODO: default this to `~/.basalt` instead, so state is per-user rather than per-directory.)
 
-Runtime state does **not** live in the repo — it's rooted at `STATE_DIR`
+Runtime state does **not** live in the repo, it's rooted at `STATE_DIR`
 (defaults to `<cwd>/.basalt`), managed by `config`/`storage`:
 
 ```
@@ -158,7 +160,7 @@ Runtime state does **not** live in the repo — it's rooted at `STATE_DIR`
 Separate from the platform tree above: where agent RUNS write files. The base
 defaults to `STATE_DIR` and is overridable with `BASALT_AGENT_WORKSPACE_DIR`.
 Point it OUTSIDE the platform tree to make `config`/`secrets`/policy a **sibling**
-of the workspace rather than an ancestor — then they are never reachable by a
+of the workspace rather than an ancestor, then they are never reachable by a
 relative write from a session's cwd, regardless of enforcement (the boundary the
 later sandbox builds on). Managed by `agent-workspace/`:
 
