@@ -1,6 +1,8 @@
 # Dependencies
 node_modules/
 .pnpm-store/
+.venv/
+venv/
 
 # Build output
 dist/
@@ -19,6 +21,9 @@ coverage/
 .cache/
 .eslintcache
 .oxlintcache
+__pycache__/
+*.pyc
+.pytest_cache/
 
 # Environment
 .env
@@ -40,10 +45,12 @@ pnpm-debug.log*
 Thumbs.db
 *.swp
 .idea/
-.vscode/*
-!.vscode/extensions.json
-!.vscode/settings.json
-.claude
+.vscode/
+
+# AI tool files (any depth)
+.claude/
+CLAUDE.md
+AGENTS.md
 
 # Internals
 .config/
